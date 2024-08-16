@@ -85,6 +85,12 @@ async function handleDownload(request) {
       }
     }
   }
+  // 伪造地区头
+  request.headers.set("Accept-Language", "en-US,en;q=0.9");
+
+  // 伪造IP头
+  request.headers.set("X-Forwarded-For", "8.8.8.8"); // 替换为你想要的IP地址
+  request.headers.set("X-Real-IP", "8.8.8.8"); // 替换为你想要的IP地址
   let response = await fetch(request);
   while (response.status >= 300 && response.status < 400) {
     const location = response.headers.get("Location");
